@@ -1,88 +1,21 @@
 version: v1.0
-name: Initial Pipeline
+name: Go
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Build Android
+  - name: "\U0001F4B0Billing service"
     task:
       jobs:
-        - name: Gradle build
+        - name: go test
           commands:
-            - echo 1
-    run:
-      when: 'change_in(''/android/'', {default_branch: ''main''})'
-    dependencies: []
-  - name: Test Android
-    run:
-      when: 'change_in(''/android/'', {default_branch: ''main''})'
-    dependencies:
-      - Build Android
-    task:
-      jobs:
-        - name: Unit tests
-          commands: []
-  - name: Publish to Google Play
-    run:
-      when: 'change_in(''/android/'', {default_branch: ''main''})'
-    dependencies:
-      - Test Android
-    task:
-      jobs:
-        - name: Publish
-          commands: []
-  - name: Build iOS
-    run:
-      when: 'change_in(''/ios/'', {default_branch: ''main''})'
-    dependencies: []
-    task:
-      jobs:
-        - name: XCode build
-          commands: []
-  - name: Test iOS
-    dependencies:
-      - Build iOS
-    run:
-      when: 'change_in(''/ios/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Unit tests
-          commands: []
-  - name: Publish to App Store
-    dependencies:
-      - Test iOS
-    run:
-      when: 'change_in(''/ios/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Publish
-          commands: []
-  - name: Build Web
-    dependencies: []
-    run:
-      when: 'change_in(''/web/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Bundle install
-          commands: []
-  - name: Tests
-    dependencies:
-      - Build Web
-    run:
-      when: 'change_in(''/web/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Unit tests
-          commands: []
-        - name: Integration tests
-          commands: []
-  - name: Deploy to Production
-    dependencies:
-      - Tests
-    run:
-      when: 'change_in(''/web/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Publish
-          commands: []
+            - sem-version go 1.12
+            - export GO111MODULE=on
+            - export GOPATH=~/go
+            - 'export PATH=/home/semaphore/go/bin:$PATH'
+            - checkout
+            - cd services/billing
+            - go get ./...
+            - go test ./...
+            - go build -v .
