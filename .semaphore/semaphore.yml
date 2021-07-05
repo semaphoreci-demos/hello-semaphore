@@ -12,11 +12,11 @@ blocks:
           commands:
             - echo 1
     run:
-      when: change_in('/android/')
+      when: 'change_in(''/android/'', {default_branch: ''main''})'
     dependencies: []
   - name: Test Android
     run:
-      when: change_in('/android/')
+      when: 'change_in(''/android/'', {default_branch: ''main''})'
     dependencies:
       - Build Android
     task:
@@ -25,7 +25,7 @@ blocks:
           commands: []
   - name: Publish to Google Play
     run:
-      when: change_in('/android/')
+      when: 'change_in(''/android/'', {default_branch: ''main''})'
     dependencies:
       - Test Android
     task:
@@ -34,7 +34,7 @@ blocks:
           commands: []
   - name: Build iOS
     run:
-      when: change_in('/ios/')
+      when: 'change_in(''/ios/'', {default_branch: ''main''})'
     dependencies: []
     task:
       jobs:
@@ -44,7 +44,7 @@ blocks:
     dependencies:
       - Build iOS
     run:
-      when: change_in('/ios/')
+      when: 'change_in(''/ios/'', {default_branch: ''main''})'
     task:
       jobs:
         - name: Unit tests
@@ -53,7 +53,7 @@ blocks:
     dependencies:
       - Test iOS
     run:
-      when: change_in('/ios/')
+      when: 'change_in(''/ios/'', {default_branch: ''main''})'
     task:
       jobs:
         - name: Publish
@@ -61,7 +61,7 @@ blocks:
   - name: Build Web
     dependencies: []
     run:
-      when: change_in('/web/')
+      when: 'change_in(''/web/'', {default_branch: ''main''})'
     task:
       jobs:
         - name: Bundle install
@@ -70,7 +70,7 @@ blocks:
     dependencies:
       - Build Web
     run:
-      when: change_in('/web/')
+      when: 'change_in(''/web/'', {default_branch: ''main''})'
     task:
       jobs:
         - name: Unit tests
@@ -81,7 +81,7 @@ blocks:
     dependencies:
       - Tests
     run:
-      when: change_in('/web/')
+      when: 'change_in(''/web/'', {default_branch: ''main''})'
     task:
       jobs:
         - name: Publish
