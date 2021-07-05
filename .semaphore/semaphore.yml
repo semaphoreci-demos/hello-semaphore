@@ -5,9 +5,84 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: 'Block #1'
+  - name: Build Android
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Gradle build
           commands:
-            - checkout
+            - echo 1
+    run:
+      when: change_in('/android/')
+    dependencies: []
+  - name: Test Android
+    run:
+      when: change_in('/android/')
+    dependencies:
+      - Build Android
+    task:
+      jobs:
+        - name: Unit tests
+          commands: []
+  - name: Publish to Google Play
+    run:
+      when: change_in('/android/')
+    dependencies:
+      - Test Android
+    task:
+      jobs:
+        - name: Publish
+          commands: []
+  - name: Build iOS
+    run:
+      when: change_in('/ios/')
+    dependencies: []
+    task:
+      jobs:
+        - name: XCode build
+          commands: []
+  - name: Test iOS
+    dependencies:
+      - Build iOS
+    run:
+      when: change_in('/ios/')
+    task:
+      jobs:
+        - name: Unit tests
+          commands: []
+  - name: Publish to App Store
+    dependencies:
+      - Test iOS
+    run:
+      when: change_in('/ios/')
+    task:
+      jobs:
+        - name: Publish
+          commands: []
+  - name: Build Web
+    dependencies: []
+    run:
+      when: change_in('/web/')
+    task:
+      jobs:
+        - name: Bundle install
+          commands: []
+  - name: Tests
+    dependencies:
+      - Build Web
+    run:
+      when: change_in('/web/')
+    task:
+      jobs:
+        - name: Unit tests
+          commands: []
+        - name: Integration tests
+          commands: []
+  - name: Deploy to Production
+    dependencies:
+      - Tests
+    run:
+      when: change_in('/web/')
+    task:
+      jobs:
+        - name: Publish
+          commands: []
