@@ -5,45 +5,45 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: "Android \U0001F528"
+  - name: Build Android
     task:
       jobs:
         - name: Build
           commands:
             - echo "Android"
     dependencies: []
-  - name: "iOS  \U0001F528"
+  - name: 'Build iOS '
     dependencies:
-      - "Android \U0001F50D"
+      - Test Android
     task:
       jobs:
         - name: Build
           commands:
             - echo "ios"
-  - name: "Website  \U0001F528"
+  - name: Build Web
     dependencies:
-      - "iOS \U0001F50D"
+      - Test iOS
     task:
       jobs:
         - name: Build
           commands: []
-  - name: "Android \U0001F50D"
+  - name: Test Android
     dependencies:
-      - "Android \U0001F528"
+      - Build Android
     task:
       jobs:
         - name: Test
           commands: []
-  - name: "iOS \U0001F50D"
+  - name: Test iOS
     dependencies:
-      - "iOS  \U0001F528"
+      - 'Build iOS '
     task:
       jobs:
         - name: Test
           commands: []
-  - name: "Website \U0001F50D"
+  - name: Test Web
     dependencies:
-      - "Website  \U0001F528"
+      - Build Web
     task:
       jobs:
         - name: Test
