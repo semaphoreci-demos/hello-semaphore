@@ -32,7 +32,7 @@ blocks:
       - "Android \U0001F528"
     task:
       jobs:
-        - name: Deploy
+        - name: Test
           commands: []
   - name: "iOS \U0001F50D"
     dependencies:
