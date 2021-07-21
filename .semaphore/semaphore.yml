@@ -5,17 +5,46 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: "\U0001F4B0Billing service"
+  - name: "Android \U0001F528"
     task:
       jobs:
-        - name: go test
+        - name: Build
           commands:
-            - sem-version go 1.12
-            - export GO111MODULE=on
-            - export GOPATH=~/go
-            - 'export PATH=/home/semaphore/go/bin:$PATH'
-            - checkout
-            - cd services/billing
-            - go get ./...
-            - go test ./...
-            - go build -v .
+            - echo "Android"
+    dependencies: []
+  - name: "iOS  \U0001F528"
+    dependencies:
+      - "Android \U0001F50D"
+    task:
+      jobs:
+        - name: Build
+          commands:
+            - echo "ios"
+  - name: "Website  \U0001F528"
+    dependencies:
+      - "iOS \U0001F50D"
+    task:
+      jobs:
+        - name: Build
+          commands: []
+  - name: "Android \U0001F50D"
+    dependencies:
+      - "Android \U0001F528"
+    task:
+      jobs:
+        - name: Deploy
+          commands: []
+  - name: "iOS \U0001F50D"
+    dependencies:
+      - "iOS  \U0001F528"
+    task:
+      jobs:
+        - name: Test
+          commands: []
+  - name: "Website \U0001F50D"
+    dependencies:
+      - "Website  \U0001F528"
+    task:
+      jobs:
+        - name: Test
+          commands: []
