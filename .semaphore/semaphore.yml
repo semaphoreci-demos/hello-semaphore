@@ -5,84 +5,17 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Build Android
+  - name: Build service1
     task:
       jobs:
-        - name: Gradle build
+        - name: 'Job #1'
           commands:
-            - echo 1
-    run:
-      when: 'change_in(''/android/'', {default_branch: ''main''})'
+            - echo "building service1"
     dependencies: []
-  - name: Test Android
-    run:
-      when: 'change_in(''/android/'', {default_branch: ''main''})'
-    dependencies:
-      - Build Android
-    task:
-      jobs:
-        - name: Unit tests
-          commands: []
-  - name: Publish to Google Play
-    run:
-      when: 'change_in(''/android/'', {default_branch: ''main''})'
-    dependencies:
-      - Test Android
-    task:
-      jobs:
-        - name: Publish
-          commands: []
-  - name: Build iOS
-    run:
-      when: 'change_in(''/ios/'', {default_branch: ''main''})'
+  - name: Build service2
     dependencies: []
     task:
       jobs:
-        - name: XCode build
-          commands: []
-  - name: Test iOS
-    dependencies:
-      - Build iOS
-    run:
-      when: 'change_in(''/ios/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Unit tests
-          commands: []
-  - name: Publish to App Store
-    dependencies:
-      - Test iOS
-    run:
-      when: 'change_in(''/ios/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Publish
-          commands: []
-  - name: Build Web
-    dependencies: []
-    run:
-      when: 'change_in(''/web/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Bundle install
-          commands: []
-  - name: Tests
-    dependencies:
-      - Build Web
-    run:
-      when: 'change_in(''/web/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Unit tests
-          commands: []
-        - name: Integration tests
-          commands: []
-  - name: Deploy to Production
-    dependencies:
-      - Tests
-    run:
-      when: 'change_in(''/web/'', {default_branch: ''main''})'
-    task:
-      jobs:
-        - name: Publish
-          commands: []
+        - name: 'Job #1'
+          commands:
+            - echo "building service2"
