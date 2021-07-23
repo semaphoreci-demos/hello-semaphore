@@ -23,3 +23,6 @@ blocks:
             - echo "building service2"
     run:
       when: 'change_in(''/service2/'', { default_branch: ''main''} )'
+promotions:
+  - name: Promotion 1
+    pipeline_file: pipeline_3.yml
