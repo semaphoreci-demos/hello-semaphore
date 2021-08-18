@@ -4,27 +4,61 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  prologue:
+    commands:
+      - export SAMPLE_ENV_VAR=123abc
+      - checkout
 blocks:
-  - name: Build service1
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands:
-            - echo "building service1"
-    dependencies: []
-    run:
-      when: 'change_in(''/service1/'', { default_branch: ''main''} )'
-  - name: Build service2
+  - name: Install dependencies
     dependencies: []
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Install
           commands:
-            - echo "building service2"
-    run:
-      when: 'change_in(''/service2/'', { default_branch: ''main''} )'
+            - checkout
+            - cache restore
+            - npm install
+            - cache store
+  - name: Linter
+    dependencies:
+      - Install dependencies
+    task:
+      jobs:
+        - name: Run linter
+          commands:
+            - checkout
+            - cache restore
+            - npm run lint
+  - name: Run tests
+    dependencies:
+      - Linter
+    task:
+      jobs:
+        - name: Unit tests
+          commands:
+            - checkout
+            - cache restore
+            - npm test
+        - name: E2E tests
+          commands:
+            - cache
+            - brew tap wix/brew
+            - brew install applesimutils
+            - cache restore
+            - cd ios
+            - pod install
+            - cd ..
+            - npm run detox-clean-and-build-cache
+            - npm run detox-ios-build-release
+            - npm run detox-ios-test-release
+            - artifact push workflow ios/build/Build/Products/Release-iphonesimulator/ReactNativeSemaphoreNew.app
 promotions:
-  - name: Promotion 1
+  - name: Build App
     pipeline_file: pipeline_3.yml
     auto_promote:
-      when: branch = 'main' AND result = 'passed'
+      when: branch = 'develop' AND result = 'passed'
+  - name: Publish to App Store
+    pipeline_file: pipeline_4.yml
+    auto_promote:
+      when: branch = 'master' AND result = 'passed'

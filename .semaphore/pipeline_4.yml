@@ -1,15 +1,15 @@
 version: v1.0
-name: Build App
+name: Publish to App Store
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Build App
+  - name: Publish beta version
     task:
       jobs:
-        - name: Build
+        - name: Publish
           commands:
             - checkout
             - cache restore
-            - bundle exec fastlane build
+            - bundle exec fastlane beta
