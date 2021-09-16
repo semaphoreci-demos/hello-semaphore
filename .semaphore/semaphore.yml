@@ -10,55 +10,13 @@ global_job_config:
       - export SAMPLE_ENV_VAR=123abc
       - checkout
 blocks:
-  - name: Install dependencies
+  - name: 'Block #1'
     dependencies: []
     task:
       jobs:
-        - name: Install
-          commands:
-            - checkout
-            - cache restore
-            - npm install
-            - cache store
-  - name: Linter
-    dependencies:
-      - Install dependencies
-    task:
-      jobs:
-        - name: Run linter
-          commands:
-            - checkout
-            - cache restore
-            - npm run lint
-  - name: Run tests
-    dependencies:
-      - Linter
-    task:
-      jobs:
-        - name: Unit tests
-          commands:
-            - checkout
-            - cache restore
-            - npm test
-        - name: E2E tests
-          commands:
-            - cache
-            - brew tap wix/brew
-            - brew install applesimutils
-            - cache restore
-            - cd ios
-            - pod install
-            - cd ..
-            - npm run detox-clean-and-build-cache
-            - npm run detox-ios-build-release
-            - npm run detox-ios-test-release
-            - artifact push workflow ios/build/Build/Products/Release-iphonesimulator/ReactNativeSemaphoreNew.app
-promotions:
-  - name: Build App
-    pipeline_file: pipeline_3.yml
-    auto_promote:
-      when: branch = 'develop' AND result = 'passed'
-  - name: Publish to App Store
-    pipeline_file: pipeline_4.yml
-    auto_promote:
-      when: branch = 'master' AND result = 'passed'
+        - name: 'Job #1'
+          commands: []
+        - name: 'Job #2'
+          commands: []
+        - name: 'Job #3'
+          commands: []
