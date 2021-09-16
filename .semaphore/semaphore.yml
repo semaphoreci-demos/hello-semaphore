@@ -20,3 +20,11 @@ blocks:
           commands: []
         - name: 'Job #3'
           commands: []
+  - name: 'Block #2'
+    dependencies: []
+    task:
+      jobs:
+        - name: 'Job #3'
+          commands: []
+        - name: 'Job #4'
+          commands: []
