@@ -18,26 +18,11 @@ blocks:
           commands: []
         - name: 'Job #2'
           commands: []
-        - name: 'Job #3'
-          commands: []
   - name: 'Block #2'
     dependencies: []
     task:
       jobs:
+        - name: 'Job #3'
+          commands: []
         - name: 'Job #4'
           commands: []
-        - name: 'Job #5'
-          commands: []
-promotions:
-  - name: Promotion 1
-    pipeline_file: pipeline_3.yml
-    auto_promote:
-      when: branch = 'main' AND result = 'passed'
-  - name: Promotion 2
-    pipeline_file: pipeline_4.yml
-    auto_promote:
-      when: branch = 'main' AND result = 'passed'
-  - name: Promotion 3
-    pipeline_file: pipeline_5.yml
-    auto_promote:
-      when: branch = 'main' AND result = 'passed'
