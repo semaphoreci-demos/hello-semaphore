@@ -10,26 +10,36 @@ global_job_config:
       - export SAMPLE_ENV_VAR=123abc
       - checkout
 blocks:
-  - name: Static tests
+  - name: Build App
     dependencies: []
     task:
       jobs:
-        - name: Lint
+        - name: Build
           commands: []
-        - name: Coverage analysis
-          commands: []
-        - name: Code formatter
-          commands: []
-  - name: Regression tests
+  - name: Test iOS
     dependencies:
-      - Static tests
+      - Build App
     task:
       jobs:
         - name: Unit tests
           commands: []
-          matrix:
-            - env_var: VERSION
-              values:
-                - '1.1'
-                - '1.2'
-                - '2.0'
+        - name: Integration tests
+          commands: []
+  - name: Test Android
+    dependencies:
+      - Build App
+    task:
+      jobs:
+        - name: Unit tests
+          commands: []
+        - name: Integration tests
+          commands: []
+  - name: Test Linux
+    dependencies:
+      - Build App
+    task:
+      jobs:
+        - name: Unit tests
+          commands: []
+        - name: Integration tests
+          commands: []
