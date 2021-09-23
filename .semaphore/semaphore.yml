@@ -4,47 +4,32 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+global_job_config:
+  prologue:
+    commands:
+      - export SAMPLE_ENV_VAR=123abc
+      - checkout
 blocks:
-  - name: Build Android
-    task:
-      jobs:
-        - name: Build
-          commands:
-            - echo "Android"
+  - name: Static tests
     dependencies: []
-  - name: 'Build iOS '
-    dependencies:
-      - Test Android
     task:
       jobs:
-        - name: Build
-          commands:
-            - echo "ios"
-  - name: Build Web
-    dependencies:
-      - Test iOS
-    task:
-      jobs:
-        - name: Build
+        - name: Lint
           commands: []
-  - name: Test Android
+        - name: Coverage analysis
+          commands: []
+        - name: Code formatter
+          commands: []
+  - name: Regression tests
     dependencies:
-      - Build Android
+      - Static tests
     task:
       jobs:
-        - name: Test
+        - name: Unit tests
           commands: []
-  - name: Test iOS
-    dependencies:
-      - 'Build iOS '
-    task:
-      jobs:
-        - name: Test
-          commands: []
-  - name: Test Web
-    dependencies:
-      - Build Web
-    task:
-      jobs:
-        - name: Test
-          commands: []
+          matrix:
+            - env_var: VERSION
+              values:
+                - '1.1'
+                - '1.2'
+                - '2.0'
