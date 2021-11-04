@@ -25,6 +25,8 @@ blocks:
           commands: []
         - name: Integration tests
           commands: []
+    run:
+      when: change_in('/ios')
   - name: Test Android
     dependencies:
       - Build App
@@ -34,6 +36,8 @@ blocks:
           commands: []
         - name: Integration tests
           commands: []
+    run:
+      when: change_in('/android')
   - name: Test Linux
     dependencies:
       - Build App
@@ -43,3 +47,26 @@ blocks:
           commands: []
         - name: Integration tests
           commands: []
+    run:
+      when: change_in('/desktop')
+  - name: Acceptance Tests Mobile
+    dependencies:
+      - Test Android
+      - Test iOS
+    run:
+      when: change_in('/ios') or change_in('/android')
+    task:
+      jobs:
+        - name: Run Tests
+          commands: []
+          parallelism: 4
+  - name: Acceptance Tests Desktop
+    dependencies:
+      - Test Linux
+    run:
+      when: change_in('/desktop')
+    task:
+      jobs:
+        - name: Run Tests
+          commands: []
+          parallelism: 3
