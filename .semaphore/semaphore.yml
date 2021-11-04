@@ -26,7 +26,7 @@ blocks:
         - name: Integration tests
           commands: []
     run:
-      when: change_in('/ios')
+      when: 'change_in(''/ios'', {default_branch: tf/two''})'
   - name: Test Android
     dependencies:
       - Build App
@@ -37,7 +37,7 @@ blocks:
         - name: Integration tests
           commands: []
     run:
-      when: change_in('/android')
+      when: 'change_in(''/android'', {default_branch: tf/two''})'
   - name: Test Linux
     dependencies:
       - Build App
@@ -48,13 +48,13 @@ blocks:
         - name: Integration tests
           commands: []
     run:
-      when: change_in('/desktop')
+      when: 'change_in(''/desktop'', {default_branch: ''tf/two''})'
   - name: Acceptance Tests Mobile
     dependencies:
       - Test Android
       - Test iOS
     run:
-      when: change_in('/ios') or change_in('/android')
+      when: 'change_in(''/ios'', {default_branch: tf/two''}) or change_in(''/android'', {default_branch: tf/two''})'
     task:
       jobs:
         - name: Run Tests
@@ -64,7 +64,7 @@ blocks:
     dependencies:
       - Test Linux
     run:
-      when: change_in('/desktop')
+      when: 'change_in(''/desktop'', {default_branch: ''tf/two''})'
     task:
       jobs:
         - name: Run Tests
