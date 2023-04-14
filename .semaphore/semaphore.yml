@@ -17,7 +17,6 @@ blocks:
       jobs:
         - name: Yarn install and cache
           commands:
-            - checkout
             - 'true'
   - name: Testing
     dependencies:
