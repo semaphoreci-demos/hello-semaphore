@@ -1,16 +1,53 @@
 version: v1.0
-name: Pipeline 2
+name: Deploy
 agent:
   machine:
-    type: e1-standard-2
+    type: e1-standard-4
     os_image: ubuntu1804
 blocks:
-  - name: Deploy
+  - name: Generate Release
+    dependencies: []
     task:
       jobs:
-        - name: Deploy to production
+        - name: Run Semantic Release
           commands:
-            - echo "deploying using key $API_KEY"
+            - 'true'
+  - name: Deploy iOS
+    dependencies:
+      - Generate Release
+    task:
+      agent:
+        machine:
+          type: a1-standard-4
+          os_image: macos-xcode13
       env_vars:
-        - name: API_KEY
-          value: '123'
+        - name: LANG
+          value: en_US.UTF-8
+        - name: RUNNER_TEMP_PATH
+          value: /Users/semaphore
+      jobs:
+        - name: Fastlane deploy
+          commands:
+            - 'true'
+  - name: Deploy Android
+    dependencies:
+      - Generate Release
+    task:
+      agent:
+        machine:
+          type: e1-standard-4
+          os_image: ubuntu2004
+        containers:
+          - name: main
+            image: 'registry.semaphoreci.com/android:30-node'
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
+        - name: RUNNER_TEMP_PATH
+          value: /Users/semaphore
+        - name: ROOT_PATH
+          value: /root/YourProjectFolder
+      jobs:
+        - name: Fastlane deploy
+          commands:
+            - 'true'

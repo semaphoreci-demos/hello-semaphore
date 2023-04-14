@@ -1,50 +1,84 @@
 version: v1.0
-name: Initial Pipeline
+name: CI/CD
 agent:
   machine:
-    type: e1-standard-2
+    type: e1-standard-4
     os_image: ubuntu1804
+fail_fast:
+  stop:
+    when: 'true'
+auto_cancel:
+  running:
+    when: branch != 'main'
 blocks:
-  - name: Build Android
-    task:
-      jobs:
-        - name: Build
-          commands:
-            - echo "Android"
+  - name: Install dependencies
     dependencies: []
-  - name: 'Build iOS '
-    dependencies:
-      - Test Android
     task:
       jobs:
-        - name: Build
+        - name: Yarn install and cache
           commands:
-            - echo "ios"
-  - name: Build Web
+            - checkout
+            - 'true'
+  - name: Testing
     dependencies:
-      - Test iOS
+      - Install dependencies
     task:
+      prologue:
+        commands:
+          - checkout
       jobs:
-        - name: Build
-          commands: []
-  - name: Test Android
+        - name: Run eslint
+          commands:
+            - 'true'
+        - name: Run unit tests
+          commands:
+            - 'true'
+        - name: Run typescript check
+          commands:
+            - 'true'
+  - name: 'Dev: Build Android'
+    skip:
+      when: branch = 'main'
     dependencies:
-      - Build Android
+      - Testing
     task:
+      agent:
+        machine:
+          type: e1-standard-4
+          os_image: ubuntu1804
+        containers:
+          - name: main
+            image: 'registry.semaphoreci.com/android:30-node'
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
+        - name: RUNNER_TEMP_PATH
+          value: /Users/semaphore
       jobs:
-        - name: Test
-          commands: []
-  - name: Test iOS
+        - name: Fastlane build
+          commands:
+            - 'true'
+  - name: 'Dev: Build iOS'
+    skip:
+      when: branch = 'main'
     dependencies:
-      - 'Build iOS '
+      - Testing
     task:
+      agent:
+        machine:
+          type: a1-standard-4
+          os_image: macos-xcode13
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
+        - name: RUNNER_TEMP_PATH
+          value: /Users/semaphore
       jobs:
-        - name: Test
-          commands: []
-  - name: Test Web
-    dependencies:
-      - Build Web
-    task:
-      jobs:
-        - name: Test
-          commands: []
+        - name: Fastlane build
+          commands:
+            - 'true'
+promotions:
+  - name: Release
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: result = 'passed' and branch = 'main'
