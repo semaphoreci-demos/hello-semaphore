@@ -22,9 +22,6 @@ blocks:
     dependencies:
       - Install dependencies
     task:
-      prologue:
-        commands:
-          - checkout
       jobs:
         - name: Run eslint
           commands:
