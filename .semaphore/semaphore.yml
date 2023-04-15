@@ -1,50 +1,14 @@
 version: v1.0
-name: Initial Pipeline
+name: Run make build
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Build Android
+  - name: Build
     task:
       jobs:
-        - name: Build
+        - name: Run make build
           commands:
-            - echo "Android"
-    dependencies: []
-  - name: 'Build iOS '
-    dependencies:
-      - Test Android
-    task:
-      jobs:
-        - name: Build
-          commands:
-            - echo "ios"
-  - name: Build Web
-    dependencies:
-      - Test iOS
-    task:
-      jobs:
-        - name: Build
-          commands: []
-  - name: Test Android
-    dependencies:
-      - Build Android
-    task:
-      jobs:
-        - name: Test
-          commands: []
-  - name: Test iOS
-    dependencies:
-      - 'Build iOS '
-    task:
-      jobs:
-        - name: Test
-          commands: []
-  - name: Test Web
-    dependencies:
-      - Build Web
-    task:
-      jobs:
-        - name: Test
-          commands: []
+            - checkout
+            - make build
