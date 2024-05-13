@@ -16,4 +16,4 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - 'echo "Hello, World!"'
+            - 'echo "Hello, world!"'
