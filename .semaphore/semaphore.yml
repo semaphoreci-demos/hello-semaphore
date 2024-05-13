@@ -3,48 +3,17 @@ name: Initial Pipeline
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
+    os_image: ubuntu2004
+global_job_config:
+  prologue:
+    commands:
+      - export SAMPLE_ENV_VAR=123abc
+      - checkout
 blocks:
-  - name: Build Android
-    task:
-      jobs:
-        - name: Build
-          commands:
-            - echo "Android"
+  - name: Block A
     dependencies: []
-  - name: 'Build iOS '
-    dependencies:
-      - Test Android
     task:
       jobs:
-        - name: Build
+        - name: 'Job #1'
           commands:
-            - echo "ios"
-  - name: Build Web
-    dependencies:
-      - Test iOS
-    task:
-      jobs:
-        - name: Build
-          commands: []
-  - name: Test Android
-    dependencies:
-      - Build Android
-    task:
-      jobs:
-        - name: Test
-          commands: []
-  - name: Test iOS
-    dependencies:
-      - 'Build iOS '
-    task:
-      jobs:
-        - name: Test
-          commands: []
-  - name: Test Web
-    dependencies:
-      - Build Web
-    task:
-      jobs:
-        - name: Test
-          commands: []
+            - 'echo "Hello, World!"'
