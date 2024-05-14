@@ -4,17 +4,16 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
-global_job_config:
-  prologue:
-    commands:
-      - export SAMPLE_ENV_VAR=123abc
-      - checkout
 blocks:
-  - name: Build
+  - name: Build and Lint
     dependencies: []
     task:
       jobs:
-        - name: Make
+        - name: Build
           commands:
             - checkout
-            - make build
+            - npm run build
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu2004
