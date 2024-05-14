@@ -1,5 +1,5 @@
 version: v1.0
-name: Build and test
+name: Initial pipeline
 agent:
   machine:
     type: e1-standard-2
@@ -10,23 +10,11 @@ global_job_config:
       - export SAMPLE_ENV_VAR=123abc
       - checkout
 blocks:
-  - name: Install
+  - name: Build
     dependencies: []
     task:
       jobs:
-        - name: Install dependencies
+        - name: Make
           commands:
-            - 'echo "Hello, World!"'
-  - name: Test
-    dependencies:
-      - Install
-    task:
-      jobs:
-        - name: Unit tests
-          commands:
-            - 'true'
-promotions:
-  - name: Deploy to Dev
-    pipeline_file: pipeline_3.yml
-  - name: Deploy to Prod
-    pipeline_file: pipeline_4.yml
+            - checkout
+            - make build
