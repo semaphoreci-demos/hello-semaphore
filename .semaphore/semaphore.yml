@@ -5,15 +5,11 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build and Lint
+  - name: Build
     dependencies: []
     task:
       jobs:
-        - name: Build
+        - name: make build
           commands:
-            - echo "hola" > hello.exe
-            - artifact push project hello.exe
-      agent:
-        machine:
-          type: e1-standard-2
-          os_image: ubuntu2004
+            - checkout
+            - make build
