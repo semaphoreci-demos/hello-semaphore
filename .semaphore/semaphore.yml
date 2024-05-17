@@ -11,8 +11,8 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - checkout
-            - npm run build
+            - echo "hola" > hello.exe
+            - artifact push project hello.exe
       agent:
         machine:
           type: e1-standard-2
