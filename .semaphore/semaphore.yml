@@ -12,4 +12,32 @@ blocks:
         - name: Build
           commands:
             - checkout
-            - make build
+            - '#npm install'
+            - '#npm run build'
+            - '#artifact push workflow dist'
+  - name: Test
+    dependencies:
+      - Build
+    task:
+      jobs:
+        - name: Unit tests
+          commands:
+            - checkout
+            - '#artifact pull workflow dist'
+            - '#npm run test:unit'
+        - name: Integration
+          commands:
+            - checkout
+            - '#artifact pull workflow dist'
+            - '#npm run test:integration'
+  - name: UI Tests
+    dependencies:
+      - Test
+    task:
+      jobs:
+        - name: UI tests
+          commands:
+            - checkout
+            - '#artifact pull workflow dist'
+            - '#npm run serve &'
+            - '#npm run test:ui'
