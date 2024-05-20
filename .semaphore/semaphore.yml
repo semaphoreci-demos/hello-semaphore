@@ -9,7 +9,7 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: make build
+        - name: Build
           commands:
             - checkout
             - make build
