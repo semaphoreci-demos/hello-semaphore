@@ -15,6 +15,7 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
+            - checkout
             - 'curl http://web'
 promotions:
   - name: Promotion 1
