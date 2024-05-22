@@ -16,9 +16,10 @@ promotions:
     pipeline_file: pipeline_3.yml
     parameters:
       env_vars:
-        - required: false
+        - required: true
           options:
             - Stage
             - Production
           description: Where to deploy?
           name: ENVIRONMENT
+          default_value: Stage
