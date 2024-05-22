@@ -17,8 +17,6 @@ promotions:
     parameters:
       env_vars:
         - required: false
-          options:
-            - Stage
-            - Production
+          options: []
           description: Where to deploy?
           name: ENVIRONMENT
