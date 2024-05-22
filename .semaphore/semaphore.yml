@@ -16,3 +16,16 @@ blocks:
         - name: 'Job #1'
           commands:
             - 'curl http://web'
+promotions:
+  - name: Promotion 1
+    pipeline_file: pipeline_3.yml
+    deployment_target: staging
+    parameters:
+      env_vars:
+        - required: true
+          options:
+            - Stage
+            - Production
+          default_value: Stage
+          description: ''
+          name: ENVIRONMENT
