@@ -5,9 +5,9 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Deploy
+  - name: 'Deploy  ${{parameters.ENVIRONMENT}}'
     task:
       jobs:
-        - name: Deploy
+        - name: 'Deploy  ${{parameters.ENVIRONMENT}}'
           commands:
             - echo "Deploy to $ENVIRONMENT"
