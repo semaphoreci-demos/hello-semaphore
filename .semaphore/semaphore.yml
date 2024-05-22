@@ -20,6 +20,5 @@ promotions:
           options:
             - Stage
             - Production
-          default_value: Stage
           description: Where to deploy?
           name: ENVIRONMENT
