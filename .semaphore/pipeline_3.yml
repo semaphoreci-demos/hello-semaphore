@@ -10,4 +10,4 @@ blocks:
       jobs:
         - name: Deploy
           commands:
-            - echo "Deploy to $ENVIRONMENT"
+            - checkout
