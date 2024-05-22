@@ -20,3 +20,5 @@ promotions:
           options: []
           description: Where to deploy?
           name: ENVIRONMENT
+    auto_promote:
+      when: 'true'
