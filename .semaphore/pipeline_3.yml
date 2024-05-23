@@ -12,3 +12,4 @@ blocks:
           commands:
             - echo "job 1"
             - checkout
+            - fail
