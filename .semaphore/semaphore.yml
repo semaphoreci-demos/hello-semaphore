@@ -4,23 +4,17 @@ agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
-  containers:
-    - name: main
-      image: 'semaphoreci/ubuntu:20.04'
-    - name: web
-      image: nginx
 blocks:
-  - name: 'Block #1'
+  - name: Build
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Build
           commands:
             - checkout
-            - 'curl http://web'
 promotions:
-  - name: Promotion 1
+  - name: Deploy
     pipeline_file: pipeline_3.yml
-    deployment_target: staging
+    deployment_target: Production
     parameters:
       env_vars:
         - required: true
