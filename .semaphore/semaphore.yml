@@ -10,18 +10,4 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - checkout
-            - checkout
-promotions:
-  - name: Deploy
-    pipeline_file: pipeline_3.yml
-    deployment_target: Production
-    parameters:
-      env_vars:
-        - required: true
-          options:
-            - Stage
-            - Production
-          default_value: Stage
-          description: ''
-          name: ENVIRONMENT
+            - 'echo "hello, world!"'
