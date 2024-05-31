@@ -5,9 +5,11 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: 'Block #1'
+  - name: Install
+    dependencies: []
     task:
       jobs:
-        - name: 'Job #1'
+        - name: npm install
           commands:
-            - 'echo "hello, world!" '
+            - checkout
+            - npm install
