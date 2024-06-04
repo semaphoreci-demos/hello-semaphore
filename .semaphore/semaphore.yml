@@ -14,7 +14,7 @@ blocks:
             - checkout
             - '#make build'
             - '#artifact push workflow app'
-            - cp commands.sh build.log
+            - echo "==> Build log for app" > build.log
             - artifact push job build.log
             - cp /usr/bin/bash app
             - artifact push workflow --force  app
