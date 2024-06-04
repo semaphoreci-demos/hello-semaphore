@@ -37,6 +37,3 @@ blocks:
             - '#artifact pull workflow app'
             - '#make e2e'
             - '#artifact push job test.log'
-promotions:
-  - name: Deploy
-    pipeline_file: pipeline_3.yml
