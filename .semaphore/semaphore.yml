@@ -12,9 +12,14 @@ blocks:
         - name: Build
           commands:
             - checkout
-            - '# s'
             - '#make build'
             - '#artifact push workflow app'
+            - cp commands.sh build.log
+            - artifact push job build.log
+            - cp /usr/bin/bash app
+            - artifact push workflow --force  app
+            - cp app app-v1
+            - artifact push project --force app
   - name: Test
     dependencies:
       - Build
