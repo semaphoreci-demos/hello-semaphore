@@ -23,7 +23,20 @@ blocks:
           commands:
             - checkout
             - '#artifact pull workflow app'
-            - '#make tests'
+            - '#make unit'
+            - '#artifact push job test.log'
+        - name: Integration tests
+          commands:
+            - checkout
+            - '#artifact pull workflow app'
+            - '#make integration'
+            - '#artifact push job test.log'
+        - name: End-to-end tests
+          commands:
+            - checkout
+            - '#artifact pull workflow app'
+            - '#make e2e'
+            - '#artifact push job test.log'
 promotions:
   - name: Deploy
     pipeline_file: pipeline_3.yml
