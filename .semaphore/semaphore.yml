@@ -12,6 +12,7 @@ blocks:
         - name: Build
           commands:
             - checkout
+            - '# s'
             - '#make build'
             - '#artifact push workflow app'
   - name: Test
