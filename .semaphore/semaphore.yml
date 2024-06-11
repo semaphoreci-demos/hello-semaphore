@@ -1,45 +1,13 @@
 version: v1.0
-name: Continuous Integration Pipelines
+name: Initial Pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build
-    dependencies: []
+  - name: 'Block #1'
     task:
       jobs:
-        - name: Build
+        - name: 'Job #1'
           commands:
             - checkout
-            - '#make build'
-            - '#artifact push workflow app'
-            - echo "==> Build log for app" > build.log
-            - artifact push job build.log
-            - cp /usr/bin/bash app
-            - artifact push workflow --force  app
-            - cp app app-v1
-            - artifact push project --force app
-  - name: Test
-    dependencies:
-      - Build
-    task:
-      jobs:
-        - name: Unit tests
-          commands:
-            - checkout
-            - '#artifact pull workflow app'
-            - '#make unit'
-            - '#artifact push job test.log'
-        - name: Integration tests
-          commands:
-            - checkout
-            - '#artifact pull workflow app'
-            - '#make integration'
-            - '#artifact push job test.log'
-        - name: End-to-end tests
-          commands:
-            - checkout
-            - '#artifact pull workflow app'
-            - '#make e2e'
-            - '#artifact push job test.log'
