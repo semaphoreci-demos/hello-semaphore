@@ -15,7 +15,8 @@ blocks:
     task:
       jobs:
         - name: 'Job #1'
-          commands: []
+          commands:
+            - checkout
         - name: 'Job #2'
           commands: []
   - name: 'Block #2'
