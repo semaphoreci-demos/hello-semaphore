@@ -1,9 +1,9 @@
 version: v1.0
-name: Initial Pipeline
+name: Monorepo
 agent:
   machine:
-    type: s1-tomfern-2
-    os_image: ''
+    type: e1-standard-2
+    os_image: ubuntu2004
 global_job_config:
   prologue:
     commands:
