@@ -10,33 +10,31 @@ global_job_config:
       - export SAMPLE_ENV_VAR=123abc
       - checkout
 blocks:
-  - name: 'Block #1'
+  - name: Backend
     dependencies: []
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Unit tests
           commands:
-            - checkout
-        - name: 'Job #2'
-          commands: []
-  - name: 'Block #2'
+            - '#checkout'
+            - '#npm install'
+            - '#npm run test'
+        - name: Integration tests
+          commands:
+            - '#checkout'
+            - '#npm install'
+            - '#npm run test:integration'
+  - name: Frontend
     dependencies: []
     task:
       jobs:
-        - name: 'Job #3'
-          commands: []
-        - name: 'Job #4'
-          commands: []
-promotions:
-  - name: Promotion 1
-    pipeline_file: pipeline_3.yml
-    auto_promote:
-      when: branch = 'main' AND result = 'passed'
-  - name: Promotion 2
-    pipeline_file: pipeline_4.yml
-    auto_promote:
-      when: branch = 'main' AND result = 'passed'
-  - name: Promotion 3
-    pipeline_file: pipeline_5.yml
-    auto_promote:
-      when: branch = 'main' AND result = 'passed'
+        - name: Unit tests
+          commands:
+            - '#checkout'
+            - '#npm install'
+            - '#npm run test'
+        - name: Integration tests
+          commands:
+            - '#checkout'
+            - '#npm install'
+            - '#npm run test:integration'
