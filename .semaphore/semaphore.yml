@@ -20,7 +20,7 @@ blocks:
           commands:
             - nvm install $NODE_VER
             - node -v
-            - 'echo "Package manager: $PKG_MGNR"'
+            - 'echo "Package manager: $PKG_MNGR"'
             - $PKG_MNGR --version
             - '#$PKG_MNGR test'
           matrix:
