@@ -12,24 +12,9 @@ global_job_config:
       - export SAMPLE_ENV_VAR=123abc
       - checkout
 blocks:
-  - name: Parallel jobs
+  - name: Block 1
     dependencies: []
     task:
       jobs:
-        - name: Job
-          commands:
-            - nvm install $NODE_VER
-            - node -v
-            - 'echo "Package manager: $PKG_MNGR"'
-            - $PKG_MNGR --version
-            - '#$PKG_MNGR test'
-          matrix:
-            - env_var: PKG_MNGR
-              values:
-                - npm
-                - yarn
-            - env_var: NODE_VER
-              values:
-                - 22.5.1
-                - 21.7.3
-                - 20.15.1
+        - name: 'Job #1'
+          commands: []
