@@ -5,12 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 execution_time_limit:
-  hours: 3
-global_job_config:
-  prologue:
-    commands:
-      - export SAMPLE_ENV_VAR=123abc
-      - checkout
+  hours: 1
 blocks:
   - name: Block 1
     dependencies: []
