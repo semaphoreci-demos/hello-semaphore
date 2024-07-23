@@ -12,16 +12,14 @@ blocks:
     task:
       jobs:
         - name: 'Job #1'
-          commands:
-            - npm install
+          commands: []
   - name: 'Block #2'
     dependencies:
       - Block 1
     task:
       jobs:
         - name: 'Job #1'
-          commands:
-            - npm install
+          commands: []
 promotions:
   - name: Promotion 1
     pipeline_file: pipeline_3.yml
