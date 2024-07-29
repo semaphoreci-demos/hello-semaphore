@@ -20,17 +20,3 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands: []
-promotions:
-  - name: Promotion 1
-    pipeline_file: pipeline_3.yml
-    auto_promote:
-      when: branch = 'master' AND result = 'passed'
-    parameters:
-      env_vars:
-        - required: true
-          options:
-            - Stage
-            - Production
-          default_value: Stage
-          description: ''
-          name: Environment
