@@ -2,8 +2,8 @@ version: v1.0
 name: Continuous Integration Pipeline
 agent:
   machine:
-    type: s1-tomfern-test
-    os_image: ''
+    type: e1-standard-2
+    os_image: ubuntu2004
 execution_time_limit:
   hours: 1
 blocks:
