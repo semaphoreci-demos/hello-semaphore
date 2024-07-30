@@ -13,6 +13,8 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands: []
+    run:
+      when: change_in('/lib')
   - name: 'Block #2'
     dependencies:
       - Block 1
