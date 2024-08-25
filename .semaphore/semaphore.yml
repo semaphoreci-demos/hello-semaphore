@@ -10,7 +10,7 @@ blocks:
       jobs:
         - name: Job that uses local env_vars
           commands:
-            - echo $APP_ENV
+            - 'false'
           env_vars:
             - name: APP_ENV
               value: This is APP_ENV
