@@ -5,36 +5,11 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Using Local Environment variables only
+  - name: 'Block #1'
+    dependencies: []
     task:
       jobs:
-        - name: Job that uses local env_vars
+        - name: 'Job #1'
           commands:
-            - 'false'
-          env_vars:
-            - name: APP_ENV
-              value: This is APP_ENV
-            - name: VAR_2
-              value: This is VAR_2 from First Job
-  - name: Both local and global env_vars
-    task:
-      env_vars:
-        - name: APP_ENV
-          value: prod
-        - name: VAR_1
-          value: VAR_1 from outer env_vars
-      jobs:
-        - name: Using both global and local env_vars
-          commands:
-            - echo $VAR_1
-            - echo $VAR_2
-            - echo $APP_ENV
-          env_vars:
-            - name: VAR_1
-              value: This is VAR_1
-            - name: VAR_2
-              value: This is VAR_2
-        - name: Second job - no local env_vars
-          commands:
-            - echo $VAR_1
-            - echo $APP_ENV
+            - sem-service start postgres
+            - echo hi
