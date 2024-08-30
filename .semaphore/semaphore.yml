@@ -16,7 +16,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version c 10
+            - sem-version go 1.22
   - name: macOS
     dependencies: []
     task:
@@ -28,7 +28,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version c 10
+            - sem-version go 1.22
   - name: docker ubuntu
     dependencies: []
     task:
@@ -43,5 +43,5 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version c 10
+            - sem-version go 1.22
 
