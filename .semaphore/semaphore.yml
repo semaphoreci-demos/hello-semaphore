@@ -17,6 +17,7 @@ blocks:
           commands:
             - checkout
             - sem-version elixir 1.16
+            - elixir --version
   - name: macOS
     dependencies: []
     task:
@@ -38,10 +39,9 @@ blocks:
           os_image: ubuntu2004
         containers:
           - name: main
-            image: 'semaphoreci/ubuntu:20.04'
+            image: 'semaphoreci/elixir:1.16'
       jobs:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version elixir 1.16
-
+            - elixir --version
