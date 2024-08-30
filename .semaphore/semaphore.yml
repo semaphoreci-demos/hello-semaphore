@@ -16,7 +16,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version ruby 3.3.4
+            - sem-version gcc 10
   - name: macOS
     dependencies: []
     task:
@@ -28,7 +28,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version ruby 3.3.4
+            - sem-version gcc 10
   - name: docker ubuntu
     dependencies: []
     task:
@@ -43,5 +43,5 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version ruby 3.3.4
+            - sem-version gcc 10
 
