@@ -1,15 +1,47 @@
 version: v1.0
-name: Initial pipeline
+name: Initial Pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build
+  - name: Linux
     dependencies: []
     task:
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu2004
       jobs:
-        - name: make build
+        - name: 'Job #1'
           commands:
             - checkout
-            - make build
+            - sem-version ruby 3.3.4
+  - name: macOS
+    dependencies: []
+    task:
+      agent:
+        machine:
+          type: a1-standard-4
+          os_image: macos-xcode15
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - sem-version ruby 3.3.4
+  - name: docker ubuntu
+    dependencies: []
+    task:
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu2004
+        containers:
+          - name: main
+            image: 'semaphoreci/ubuntu:20.04'
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - sem-version ruby 3.3.4
+
