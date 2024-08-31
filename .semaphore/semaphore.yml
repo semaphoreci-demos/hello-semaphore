@@ -16,7 +16,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version elixir 1.16
+            - sem-version java 11
   - name: macOS
     dependencies: []
     task:
@@ -28,7 +28,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version elixir 1.16
+            - sem-version java 11
   - name: docker ubuntu
     dependencies: []
     task:
@@ -43,5 +43,5 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version elixir 1.16
+            - sem-version java 11
 
