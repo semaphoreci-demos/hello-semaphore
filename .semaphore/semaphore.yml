@@ -16,7 +16,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version python 3.11
+            - sem-version php 8.2.20
   - name: macOS
     dependencies: []
     task:
@@ -28,7 +28,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version python 3.11
+            - sem-version php 8.2.20
   - name: docker ubuntu
     dependencies: []
     task:
