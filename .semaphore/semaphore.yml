@@ -16,7 +16,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version node 18.20.4
+            - sem-version php 8.2.20
   - name: macOS
     dependencies: []
     task:
@@ -28,7 +28,7 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version node 18.20.4
+            - sem-version php 8.2.20
   - name: docker ubuntu
     dependencies: []
     task:
@@ -43,4 +43,4 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - sem-version node 18.20.4
+            - sem-version php 8.2.20
