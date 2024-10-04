@@ -1,0 +1,19 @@
+version: v1.0
+name: Continuous Delivery Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Build image
+    task:
+      jobs:
+        - name: Docker build
+          commands:
+            - 'true'
+  - name: Push image
+    task:
+      jobs:
+        - name: Docker push
+          commands:
+            - 'true'

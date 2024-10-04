@@ -40,3 +40,6 @@ blocks:
         - name: Firefox
           commands:
             - 'true'
+promotions:
+  - name: Docker
+    pipeline_file: pipeline_3.yml
