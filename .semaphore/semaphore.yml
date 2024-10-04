@@ -1,15 +1,42 @@
 version: v1.0
-name: Using env_vars per jobs
+name: Continuous Integration Pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: 'Block #1'
+  - name: Build
     dependencies: []
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Make build
           commands:
-            - sem-service start postgres
-            - echo hi
+            - 'true'
+  - name: Tests
+    dependencies:
+      - Build
+    task:
+      jobs:
+        - name: Unit tests
+          commands:
+            - 'true'
+        - name: Integration Tests
+          commands:
+            - 'true'
+        - name: Security Audit
+          commands:
+            - 'true'
+  - name: End to end tests
+    dependencies:
+      - Tests
+    task:
+      jobs:
+        - name: Chrome
+          commands:
+            - 'true'
+        - name: Safari
+          commands:
+            - 'true'
+        - name: Firefox
+          commands:
+            - 'true'
