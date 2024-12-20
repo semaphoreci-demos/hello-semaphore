@@ -14,7 +14,8 @@ blocks:
       jobs:
         - name: Make build
           commands:
-            - 'true'
+            - echo hello > hello.txt
+            - cache push main hello.txt
   - name: Tests
     dependencies:
       - Build
@@ -22,7 +23,8 @@ blocks:
       jobs:
         - name: Unit tests
           commands:
-            - 'true'
+            - cache pull main
+            - cat hello.txt
         - name: Integration Tests
           commands:
             - 'true'
