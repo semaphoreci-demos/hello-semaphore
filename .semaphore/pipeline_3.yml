@@ -1,22 +1,13 @@
 version: v1.0
-name: Continuous Delivery Pipeline
+name: Pipeline 3
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build image
+  - name: 'Block #1'
     task:
       jobs:
-        - name: Docker build
+        - name: 'Job #1'
           commands:
-            - 'true'
-  - name: Push image
-    task:
-      jobs:
-        - name: Docker push
-          commands:
-            - 'true'
-promotions:
-  - name: Deploy
-    pipeline_file: pipeline_4.yml
+            - 'echo "%{{parameters.VAR1 | nospace}}"'

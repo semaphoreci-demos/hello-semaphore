@@ -12,39 +12,19 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: Make build
-          commands:
-            - echo hello > hello.txt
-            - cache store main hello.txt
-  - name: Tests
-    dependencies:
-      - Build
-    task:
-      jobs:
-        - name: Unit tests
-          commands:
-            - cache restore main
-            - cat hello.txt
-        - name: Integration Tests
-          commands:
-            - 'true'
-        - name: Security Audit
-          commands:
-            - 'true'
-  - name: End to end tests
-    dependencies:
-      - Tests
-    task:
-      jobs:
-        - name: Chrome
-          commands:
-            - 'true'
-        - name: Safari
-          commands:
-            - 'true'
-        - name: Firefox
+        - name: Job
           commands:
             - 'true'
 promotions:
-  - name: Docker
+  - name: Promotion 1
     pipeline_file: pipeline_3.yml
+    parameters:
+      env_vars:
+        - required: true
+          options:
+            - foo
+            - bar
+            - 'Hello, World'
+          default_value: foo
+          description: Test variable
+          name: VAR1
