@@ -8,6 +8,9 @@ blocks:
   - name: 'Block #1'
     task:
       jobs:
-        - name: 'Job #1'
+        - name: 'Job #2'
           commands:
-            - 'echo "%{{parameters.VAR1 | nospace}}"'
+            - 'echo Region: $REGION'
+          matrix:
+            - env_var: REGION
+              values: '%{{parameters.VAR2 | splitList ","}}'

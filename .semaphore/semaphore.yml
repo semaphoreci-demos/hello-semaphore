@@ -25,3 +25,10 @@ promotions:
           default_value: foo
           description: Test variable
           name: VAR1
+        - required: true
+          options:
+            - foo
+            - 'us-central-1,us-east-1'
+          default_value: ''
+          description: ''
+          name: VAR2
