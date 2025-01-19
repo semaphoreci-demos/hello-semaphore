@@ -5,9 +5,27 @@ agent:
     type: a1-standard-4
     os_image: macos-xcode15
 blocks:
-  - name: 'Block #1'
+  - name: Build
+    task:
+      jobs:
+        - name: Compile
+          commands:
+            - checkout
+  - name: Unit tests
+    task:
+      jobs:
+        - name: Unit tests
+          commands: []
+          parallelism: 8
+  - name: Integration Tests
     task:
       jobs:
         - name: 'Job #1'
-          commands:
-            - checkout
+          commands: []
+          parallelism: 4
+  - name: End-to-end tests
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+          parallelism: 2
