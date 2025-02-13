@@ -11,6 +11,19 @@ blocks:
       jobs:
         - name: Job
           commands:
+            - '#checkout'
+            - '#make'
+            - '#artifact push workflow myapp'
+  - name: Tests
+    dependencies:
+      - Build
+    task:
+      jobs:
+        - name: Unit tests
+          commands:
+            - 'true'
+        - name: Valgrind
+          commands:
             - 'true'
 promotions:
   - name: Promotion 1
