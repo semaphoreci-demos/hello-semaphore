@@ -5,7 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build
+  - name: Install dependencies
     dependencies: []
     task:
       jobs:
@@ -16,12 +16,15 @@ blocks:
             - '#artifact push workflow myapp'
   - name: Tests
     dependencies:
-      - Build
+      - Install dependencies
     task:
       jobs:
         - name: Unit tests
           commands:
             - 'true'
-        - name: Valgrind
+        - name: Flake tests
+          commands:
+            - 'true'
+        - name: Pytlint
           commands:
             - 'true'
