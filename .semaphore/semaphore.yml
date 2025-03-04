@@ -5,18 +5,8 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build
-    dependencies: []
-    task:
-      jobs:
-        - name: Build project
-          commands:
-            - '#checkout'
-            - '#make'
-            - '#artifact push workflow myapp'
   - name: Tests
-    dependencies:
-      - Build
+    dependencies: []
     task:
       jobs:
         - name: Unit tests
@@ -68,11 +58,4 @@ blocks:
         - name: Sign binary
           commands: []
         - name: Update SBOM
-          commands: []
-  - name: Release
-    dependencies:
-      - Sign
-    task:
-      jobs:
-        - name: Create release
           commands: []
