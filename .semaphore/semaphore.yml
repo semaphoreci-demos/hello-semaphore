@@ -5,26 +5,74 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Install dependencies
+  - name: Build
     dependencies: []
     task:
       jobs:
-        - name: Job
+        - name: Build project
           commands:
             - '#checkout'
             - '#make'
             - '#artifact push workflow myapp'
   - name: Tests
     dependencies:
-      - Install dependencies
+      - Build
     task:
       jobs:
         - name: Unit tests
           commands:
             - 'true'
-        - name: Flake tests
+          parallelism: 2
+        - name: Linter
           commands:
             - 'true'
-        - name: Pytlint
+        - name: Dependency check
           commands:
             - 'true'
+        - name: SAST testing
+          commands: []
+  - name: Integration
+    dependencies:
+      - Tests
+    task:
+      jobs:
+        - name: Integration tests
+          commands: []
+          parallelism: 2
+        - name: DAST testing
+          commands: []
+  - name: Smoke tests
+    dependencies:
+      - Integration
+    task:
+      jobs:
+        - name: Smoke tests
+          commands: []
+          parallelism: 4
+  - name: End-to-end tests
+    dependencies:
+      - Smoke tests
+    task:
+      jobs:
+        - name: End-to-end
+          commands: []
+          parallelism: 2
+        - name: Acceptance tests
+          commands: []
+          parallelism: 4
+  - name: Sign
+    dependencies:
+      - End-to-end tests
+    task:
+      jobs:
+        - name: Sign binary
+          commands: []
+        - name: Update SBOM
+          commands: []
+  - name: Release
+    dependencies:
+      - Sign
+    task:
+      jobs:
+        - name: Create release
+          commands: []
