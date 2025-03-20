@@ -41,5 +41,5 @@ blocks:
       - Build
     task:
       jobs:
-        - name: Structurize
+        - name: Structurizr
           commands: []
