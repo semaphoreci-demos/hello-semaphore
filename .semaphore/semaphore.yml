@@ -5,43 +5,55 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Build
+  - name: Tests
     dependencies: []
     task:
       jobs:
-        - name: Build
+        - name: Unit tests
           commands: []
-  - name: Tests
+          parallelism: 2
+        - name: Linter
+          commands: []
+        - name: Dependency check
+          commands: []
+        - name: SAST Testing
+          commands: []
+  - name: Integration
     dependencies:
-      - Build
+      - Tests
     task:
       jobs:
         - name: Integration tests
           commands: []
           parallelism: 2
-        - name: Unit tests
+        - name: DAST Testing
           commands: []
-          parallelism: 4
-  - name: Provision Test Env
+  - name: Smoke tests
     dependencies:
-      - Tests
+      - Integration
     task:
       jobs:
-        - name: Terraform apply
+        - name: Smoke tests
           commands: []
+          parallelism: 4
   - name: End-to-end tests
     dependencies:
-      - Provision Test Env
+      - Smoke tests
     task:
       jobs:
         - name: End-to-end
-          commands: []
+          commands:
+            - 'false'
           parallelism: 2
         - name: Acceptance tests
           commands: []
           parallelism: 4
-after_pipeline:
-  task:
-    jobs:
-      - name: Destroy Test Env
-        commands: []
+  - name: Sign
+    dependencies:
+      - End-to-end tests
+    task:
+      jobs:
+        - name: Sign binary
+          commands: []
+        - name: Update SBOM
+          commands: []
