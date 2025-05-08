@@ -36,10 +36,3 @@ blocks:
           parallelism: 2
     dependencies:
       - Integration Tests
-  - name: Generate diagrams
-    dependencies:
-      - Build
-    task:
-      jobs:
-        - name: Structurizr
-          commands: []
