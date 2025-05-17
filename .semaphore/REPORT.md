@@ -1,4 +1,3 @@
 # Project dependencies
 
-![dependencies](./chalk.png)
-
+![dependencies](.semaphore/chalk.png)
