@@ -11,5 +11,6 @@ blocks:
       jobs:
         - name: Artifact
           commands:
+            - checkout
             - artifact push workflow -d .semaphore/REPORT.md .semaphore/REPORT.md
             - artifact push workflow -d .semaphore/chalk.png .semaphore/chalk.png
