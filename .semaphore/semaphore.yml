@@ -9,7 +9,12 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: Artifact
+        - name: Base64 image
           commands:
             - checkout
+            - artifact push workflow -d .semaphore/REPORT.md REPORT.md
+        - name: Build info
+          commands:
+            - checkout
+            - envsubst < BUILD.md > REPORT.md
             - artifact push workflow -d .semaphore/REPORT.md REPORT.md
