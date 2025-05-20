@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-echo "# Project Dependencies" >REPORT.md
-echo -n '![Dependency Graph](data:image/png;base64,' >>REPORT.md
-echo $(base64 -i chalk.png -w 0)')' >>REPORT.md
+echo "# Project Dependencies" >dependencies.md
+# echo -n '![Dependency Graph](data:image/png;base64,' >>REPORT.md
+# echo $(base64 -i chalk.png -w 0)')' >>REPORT.md
+
+echo '![Alt Text](data:image/png;base64,'$(base64 -i dependencies.png -w 0)')' >>REPORT.md
