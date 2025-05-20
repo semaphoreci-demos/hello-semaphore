@@ -12,7 +12,9 @@ blocks:
         - name: Base64 image
           commands:
             - checkout
-            - artifact push job -d .semaphore/REPORT.md REPORT.md
+            - 'echo "# Project Dependencies" > dependencies.md'
+            - 'echo ''![Alt Text](data:image/png;base64,''$(base64 -i dependencies.png -w 0)'')'' >> depdendencies.md'
+            - artifact push job -d .semaphore/REPORT.md dependencies.md
         - name: Build info
           commands:
             - checkout
