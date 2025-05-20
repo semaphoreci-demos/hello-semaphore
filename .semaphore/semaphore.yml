@@ -20,3 +20,7 @@ blocks:
             - checkout
             - envsubst < BUILD.md > REPORT.md
             - artifact push job -d .semaphore/REPORT.md REPORT.md
+        - name: External image
+          commands:
+            - checkout
+            - artifact push job -d .semaphore/REPORT.md image.md
