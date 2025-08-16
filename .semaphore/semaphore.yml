@@ -18,7 +18,7 @@ blocks:
           os_image: ubuntu2004
         containers:
           - name: main
-            image: 'openjdk:openjdk:21-jdk'
+            image: 'openjdk:21-jdk'
   - name: Apt install
     dependencies: []
     task:
@@ -26,3 +26,4 @@ blocks:
         - name: test version
           commands:
             - sudo apt install openjdk-21-jdk
+            - java -version
