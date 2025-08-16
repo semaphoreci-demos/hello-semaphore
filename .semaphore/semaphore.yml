@@ -5,10 +5,24 @@ agent:
     type: f1-standard-2
     os_image: ubuntu2204
 blocks:
-  - name: Test Java 21
+  - name: Docker OpenJDK
     dependencies: []
     task:
       jobs:
-        - name: sem-version
+        - name: test version
           commands:
-            - sem-version java 21
+            - java -version
+      agent:
+        machine:
+          type: f1-standard-2
+          os_image: ubuntu2004
+        containers:
+          - name: main
+            image: 'openjdk:openjdk:21-jdk'
+  - name: Apt install
+    dependencies: []
+    task:
+      jobs:
+        - name: test version
+          commands:
+            - sudo apt install openjdk-21-jdk
