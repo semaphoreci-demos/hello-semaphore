@@ -2,58 +2,13 @@ version: v1.0
 name: Continuous Integration Pipeline
 agent:
   machine:
-    type: e1-standard-2
-    os_image: ubuntu2004
+    type: f1-standard-2
+    os_image: ubuntu2204
 blocks:
-  - name: Tests
+  - name: Test Java 21
     dependencies: []
     task:
       jobs:
-        - name: Unit tests
-          commands: []
-          parallelism: 2
-        - name: Linter
-          commands: []
-        - name: Dependency check
-          commands: []
-        - name: SAST Testing
-          commands: []
-  - name: Integration
-    dependencies:
-      - Tests
-    task:
-      jobs:
-        - name: Integration tests
-          commands: []
-          parallelism: 2
-        - name: DAST Testing
-          commands: []
-  - name: Smoke tests
-    dependencies:
-      - Integration
-    task:
-      jobs:
-        - name: Smoke tests
-          commands: []
-          parallelism: 4
-  - name: End-to-end tests
-    dependencies:
-      - Smoke tests
-    task:
-      jobs:
-        - name: End-to-end
+        - name: sem-version
           commands:
-            - 'false'
-          parallelism: 2
-        - name: Acceptance tests
-          commands: []
-          parallelism: 4
-  - name: Sign
-    dependencies:
-      - End-to-end tests
-    task:
-      jobs:
-        - name: Sign binary
-          commands: []
-        - name: Update SBOM
-          commands: []
+            - sem-version java 21
