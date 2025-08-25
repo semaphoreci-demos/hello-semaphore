@@ -19,5 +19,10 @@ promotions:
   - name: Prod
     pipeline_file: pipeline_3.yml
     deployment_target: Production
+    auto_promote:
+      when: result = 'passed'
   - name: Staging
     pipeline_file: pipeline_4.yml
+    deployment_target: Staging
+    auto_promote:
+      when: result = 'passed'
