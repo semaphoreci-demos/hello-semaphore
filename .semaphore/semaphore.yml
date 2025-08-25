@@ -18,5 +18,6 @@ blocks:
 promotions:
   - name: Prod
     pipeline_file: pipeline_3.yml
+    deployment_target: Production
   - name: Staging
     pipeline_file: pipeline_4.yml
