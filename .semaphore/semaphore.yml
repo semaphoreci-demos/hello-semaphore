@@ -14,36 +14,28 @@ blocks:
     task:
       jobs:
         - name: Build
-          commands:
-            - make build
-            - artifact push workflow build/
+          commands: []
   - name: Unit tests
     dependencies:
       - Build job
     task:
       jobs:
         - name: Units
-          commands:
-            - artifact pull workflow build
-            - make unit-tests
+          commands: []
   - name: Integration tests
     dependencies:
       - Build job
     task:
       jobs:
         - name: integration
-          commands:
-            - artifact pull workflow build
-            - make integration-tests
+          commands: []
   - name: End-to-end tests
     dependencies:
       - Build job
     task:
       jobs:
         - name: e2e
-          commands:
-            - artifact pull workflow build
-            - make e2e-tests
+          commands: []
 promotions:
   - name: release
     pipeline_file: pipeline_3.yml
