@@ -37,5 +37,5 @@ blocks:
         - name: e2e
           commands: []
 promotions:
-  - name: release
+  - name: Release
     pipeline_file: pipeline_3.yml
