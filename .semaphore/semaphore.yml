@@ -4,14 +4,46 @@ agent:
   machine:
     type: f1-standard-2
     os_image: ubuntu2204
+global_job_config:
+  prologue:
+    commands:
+      - checkout
 blocks:
-  - name: Apt install
+  - name: Build job
     dependencies: []
     task:
       jobs:
-        - name: test version
+        - name: Build
           commands:
-            - sudo apt update
-            - sudo apt install -y openjdk-21-jdk
-            - sudo update-java-alternatives --set /usr/lib/jvm/java-1.21.0-openjdk-amd64
-            - java -version
+            - make build
+            - artifact push workflow build/
+  - name: Unit tests
+    dependencies:
+      - Build job
+    task:
+      jobs:
+        - name: Units
+          commands:
+            - artifact pull workflow build
+            - make unit-tests
+  - name: Integration tests
+    dependencies:
+      - Build job
+    task:
+      jobs:
+        - name: integration
+          commands:
+            - artifact pull workflow build
+            - make integration-tests
+  - name: End-to-end tests
+    dependencies:
+      - Build job
+    task:
+      jobs:
+        - name: e2e
+          commands:
+            - artifact pull workflow build
+            - make e2e-tests
+promotions:
+  - name: release
+    pipeline_file: pipeline_3.yml
