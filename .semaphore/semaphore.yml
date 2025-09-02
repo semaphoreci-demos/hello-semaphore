@@ -9,33 +9,23 @@ global_job_config:
     commands:
       - checkout
 blocks:
-  - name: Build job
+  - name: Job matrix
     dependencies: []
     task:
       jobs:
-        - name: Build
-          commands: []
-  - name: Unit tests
-    dependencies:
-      - Build job
-    task:
-      jobs:
-        - name: Units
-          commands: []
-  - name: Integration tests
-    dependencies:
-      - Build job
-    task:
-      jobs:
-        - name: integration
-          commands: []
-  - name: End-to-end tests
-    dependencies:
-      - Build job
-    task:
-      jobs:
-        - name: e2e
-          commands: []
-promotions:
-  - name: Release
-    pipeline_file: pipeline_3.yml
+        - name: Test
+          commands:
+            - checkout
+            - sem-version node $NODE_VERSION
+            - sem-database start $DB_BACKEND
+            - npm test
+          matrix:
+            - env_var: NODE_VERSION
+              values:
+                - '24.7'
+                - '22.19'
+                - '20.19'
+            - env_var: DB_BACKEND
+              values:
+                - mysql
+                - postgres
