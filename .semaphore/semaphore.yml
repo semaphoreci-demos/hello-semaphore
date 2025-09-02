@@ -17,7 +17,7 @@ blocks:
           commands:
             - checkout
             - sem-version node $NODE_VERSION
-            - sem-database start $DB_BACKEND
+            - sem-service start $DB_BACKEND
             - npm test
           matrix:
             - env_var: NODE_VERSION
