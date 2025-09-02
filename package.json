@@ -1,0 +1,21 @@
+{
+  "name": "hello-semaphore",
+  "version": "1.0.0",
+  "description": "1 1 1 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/semaphoreci-demos/hello-semaphore.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/semaphoreci-demos/hello-semaphore/issues"
+  },
+  "homepage": "https://github.com/semaphoreci-demos/hello-semaphore#readme"
+}
