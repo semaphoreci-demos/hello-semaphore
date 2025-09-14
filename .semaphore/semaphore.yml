@@ -9,23 +9,54 @@ global_job_config:
     commands:
       - checkout
 blocks:
-  - name: Job matrix
+  - name: Build Stage
     dependencies: []
     task:
       jobs:
-        - name: Test
+        - name: Build Project
           commands:
-            - checkout
-            - sem-version node $NODE_VERSION
-            - sem-service start $DB_BACKEND
-            - npm test
-          matrix:
-            - env_var: NODE_VERSION
-              values:
-                - '24.7'
-                - '22.19'
-                - '20.19'
-            - env_var: DB_BACKEND
-              values:
-                - mysql
-                - postgres
+            - '#checkout'
+            - '#npm run build'
+            - '#artifact push workflow build/'
+  - name: End to end tests
+    dependencies:
+      - Build Stage
+    task:
+      jobs:
+        - name: Run E2E tests
+          commands:
+            - '#checkout'
+            - '#artifact pull workflow build/'
+            - '#npm run test:e2e'
+  - name: Integration Tests
+    dependencies:
+      - Build Stage
+    task:
+      jobs:
+        - name: Run integration tests
+          commands:
+            - '#checkout'
+            - '#artifact pull workflow build/'
+            - '#npm run test:integration'
+  - name: Unit tests
+    dependencies:
+      - Build Stage
+    task:
+      jobs:
+        - name: Run unit tests
+          commands:
+            - '#checkout'
+            - '#artifact pull workflow build/'
+            - '#npm run test:unit'
+  - name: Release candidate
+    dependencies:
+      - End to end tests
+      - Integration Tests
+      - Unit tests
+    task:
+      jobs:
+        - name: Generate RC
+          commands:
+            - '#checkout'
+            - '#artifact pull workflow build/'
+            - '#npm run package'
